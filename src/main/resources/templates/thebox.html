@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Box</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="dark-theme">
+
+<main class="theme-switcher-container">
+  <button class="theme-switcher-grid night-theme" id="theme-switcher" aria-label="Switch theme">
+    <div class="sun" id="sun" aria-hidden="true"></div>
+    <div class="moon-overlay" id="moon-overlay" aria-hidden="true"></div>
+    <div class="cloud-ball cloud-ball-left" id="ball1" aria-hidden="true"></div>
+    <div class="cloud-ball cloud-ball-middle" id="ball2" aria-hidden="true"></div>
+    <div class="cloud-ball cloud-ball-right" id="ball3" aria-hidden="true"></div>
+    <div class="cloud-ball cloud-ball-top" id="ball4" aria-hidden="true"></div>
+    <div class="star" id="star1" aria-hidden="true"></div>
+    <div class="star" id="star2" aria-hidden="true"></div>
+    <div class="star" id="star3" aria-hidden="true"></div>
+    <div class="star" id="star4" aria-hidden="true"></div>
+  </button>
+</main>
+
+<h1 id="game-title">The Box</h1>
+
+<div id="game-container">
+  <svg id="game-canvas" viewBox="0 0 400 400">
+    <rect id="the-box" x="175" y="175" width="50" height="50" fill="white" />
+
+    <path id="the-face" d="M 185 205 A 15 10 0 0 0 215 205" stroke="black" stroke-width="2.5" fill="none" />
+    <circle id="left-eye" cx="192" cy="190" r="2.5" fill="black" />
+    <circle id="right-eye" cx="208" cy="190" r="2.5" fill="black" />
+  </svg>
+</div>
+
+<form id="prompt-form">
+  <input type="text" id="prompt-input" placeholder="enter prompt here" maxlength="200" required>
+  <button type="submit">Transform</button>
+</form>
+
+<div id="loader" class="hidden"></div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

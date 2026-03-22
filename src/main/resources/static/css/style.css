@@ -1,0 +1,220 @@
+/* --- THEME AND COLOR VARIABLES --- */
+:root {
+    /* Light Theme Colors (Default) */
+    --background-color: #f0f0e8;
+    --text-color: #1c2135;
+    --box-background: #000000; /* Stays black */
+    --box-color: #ffffff;      /* Stays white */
+    --border-color: #1c2135;
+
+    /* Theme Switcher Specific Colors */
+    --sun-color: #fabc1c;
+    --moon-color: #fffdf2;
+    --day-bg-color: #0dbdf6;
+    --night-bg-color: #272a30;
+    --cloud-color: #fffdf2;
+    --star-color: #fffdf2;
+}
+
+/* Dark Theme Color Overrides */
+body.dark-theme {
+    --background-color: #1c2135;
+    --text-color: #f0f0e8;
+    --border-color: #f0f0e8;
+}
+
+/* --- MAIN PAGE STYLES --- */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.8s ease, color 0.8s ease;
+}
+
+h1#game-title {
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 3.5em;
+    font-weight: normal;
+    margin-bottom: 20px;
+    text-align: center;
+    /* Disable user selection to prevent text highlighting during animation */
+    user-select: none;
+}
+
+/* Style for the individual letter spans created by the script */
+#game-title span {
+    display: inline-block; /* Allows each letter to be its own block for positioning */
+    transition: font-variation-settings 0.2s ease-out; /* Smooths the animation slightly */
+}
+
+#game-container {
+    width: 80vmin;
+    height: 80vmin;
+    max-width: 600px;
+    max-height: 600px;
+    background-color: var(--box-background);
+    border: 1px solid var(--text-color); /* Uses theme variable */
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: border-color 0.8s ease;
+}
+
+#game-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#prompt-form {
+    margin-top: 20px;
+    display: flex;
+    width: 80vmin;
+    max-width: 600px;
+}
+
+#prompt-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 1em;
+    font-family: inherit;
+    border: 1px solid var(--text-color);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.8s ease, color 0.8s ease, border-color 0.8s ease;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    font-family: inherit;
+    border: 1px solid var(--text-color);
+    background-color: var(--text-color);
+    color: var(--background-color);
+    cursor: pointer;
+    transition: background-color 0.8s, color 0.8s, border-color 0.8s ease;
+}
+
+button:hover {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* --- LOADER STYLES --- */
+#loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid var(--border-color);
+    border-top-color: var(--text-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hidden { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- THEME SWITCHER STYLES --- */
+.theme-switcher-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-switcher-grid {
+    display: grid;
+    grid-template-columns: repeat(54, 1px);
+    grid-template-rows: repeat(24, 1px);
+    gap: 0;
+    position: relative;
+    background-color: var(--day-bg-color);
+    border-radius: 49px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.8s ease, border-color 0.8s ease;
+    appearance: none;
+    padding: 0;
+}
+
+.theme-switcher-grid.night-theme {
+    background-color: var(--night-bg-color);
+}
+
+.sun {
+    background-color: var(--sun-color);
+    grid-column: 3 / 23;
+    grid-row: 3 / 23;
+    border-radius: 50%;
+    transition: grid-column 0.8s ease, background-color 0.8s ease;
+    height: 20px;
+}
+
+.theme-switcher-grid.night-theme .sun {
+    grid-column: 33 / 53;
+    background-color: var(--moon-color);
+}
+
+.moon-overlay {
+    position: absolute;
+    border-radius: 50%;
+    transition: left 0.8s ease, background-color 0.8s ease;
+    z-index: 1;
+    background-color: var(--day-bg-color);
+}
+
+.theme-switcher-grid.night-theme .moon-overlay {
+    display: block;
+    left: calc(28 / 54 * 100%);
+    top: calc(4 / 29 * 100%);
+    width: 18px;
+    height: 18px;
+    background-color: var(--night-bg-color);
+}
+
+.cloud-ball {
+    background-color: var(--cloud-color);
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+    position: absolute;
+    transition: all 0.8s ease;
+    z-index: 2;
+}
+
+#ball1 { top: calc((8 / 24) * 100%); left: calc((12 / 54) * 100%); }
+#ball2 { top: calc((8 / 24) * 100%); left: calc((17 / 54) * 100%); }
+#ball3 { top: calc((8 / 24) * 100%); left: calc((22 / 54) * 100%); }
+#ball4 { top: calc((6 / 24) * 100%); left: calc((17 / 54) * 100%); }
+
+.theme-switcher-grid.night-theme #ball1 { top: calc((16 / 24) * 100%); left: calc((16 / 54) * 100%); width: 2px; height: 2px; }
+.theme-switcher-grid.night-theme #ball2 { top: calc((3 / 24) * 100%); left: calc((22 / 54) * 100%); width: 2px; height: 2px; }
+.theme-switcher-grid.night-theme #ball3 { top: calc((10 / 24) * 100%); left: calc((29 / 54) * 100%); width: 2px; height: 2px; }
+.theme-switcher-grid.night-theme #ball4 { top: calc((5 / 24) * 100%); left: calc((34 / 54) * 100%); width: 2px; height: 2px; }
+
+.star {
+    background-color: var(--star-color);
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    border-radius: 50%;
+}
+
+#star1 { top: calc((7 / 24) * 100%); left: calc((10 / 54) * 100%); }
+#star2 { top: calc((9 / 24) * 100%); left: calc((16 / 54) * 100%); }
+#star3 { top: calc((13 / 24) * 100%); left: calc((23 / 54) * 100%); }
+#star4 { top: calc((18 / 24) * 100%); left: calc((29 / 54) * 100%); }
+
+.theme-switcher-grid.night-theme .star {
+    opacity: 1;
+}
