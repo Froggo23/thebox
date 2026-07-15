@@ -1,0 +1,6 @@
+# Project MCP: local Supabase while `npm run supabase:start` is running.
+# For cloud MCP (OAuth): https://mcp.supabase.com/mcp — authenticate via Grok /mcps UI.
+
+[mcp_servers.supabase]
+url = "http://127.0.0.1:54321/mcp"
+enabled = true
